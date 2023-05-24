@@ -9,9 +9,13 @@ class PemesananController {
     List<dynamic> listData = [];
     // Inisialisasi Hive
     await Hive.initFlutter();
-    if (!Hive.isAdapterRegistered(0)) {
+    if (!Hive.isAdapterRegistered(157)) {
       // Register Hive Adapter
       Hive.registerAdapter(PesananAdapter());
+    }
+    if (!Hive.isAdapterRegistered(1)) {
+      // Register Hive Adapter
+      Hive.registerAdapter(TODAdapter()); // Add parentheses here
     }
 
     // Buka Hive Box
@@ -20,13 +24,22 @@ class PemesananController {
     if (box.get('pesanan') == null) {
       listData.add(data);
       box.put('pesanan', listData);
+      if (box.containsKey("pesanan")) {
+        print("ada pesanan");
+      } else {
+        print("gak ada pesanan");
+      }
     } else {
       List<dynamic> sendata = box.get('pesanan');
       sendata.add(data);
       box.put('pesanan', sendata);
+      if (box.containsKey("pesanan")) {
+        print("ada pesanan");
+      } else {
+        print("gak ada pesanan");
+      }
     }
 
     // Tutup Hive Box dan Hapus direktori Hive
-    await box.close();
   }
 }

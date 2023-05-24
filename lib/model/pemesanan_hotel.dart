@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-
+import 'package:hive_flutter/hive_flutter.dart' as hive_flutter;
 part 'pemesanan_hotel.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 157)
 class Pesanan extends HiveObject {
   @HiveField(0)
   final int? idPemesanan;
@@ -43,4 +43,22 @@ class Pesanan extends HiveObject {
     this.hariCheckOut,
     this.price,
   });
+}
+
+class TODAdapter extends TypeAdapter<TimeOfDay> {
+  @override
+  final int typeId = 1;
+
+  @override
+  TimeOfDay read(BinaryReader reader) {
+    final hour = reader.readByte();
+    final minute = reader.readByte();
+    return TimeOfDay(hour: hour, minute: minute);
+  }
+
+  @override
+  void write(BinaryWriter writer, TimeOfDay obj) {
+    writer.writeByte(obj.hour);
+    writer.writeByte(obj.minute);
+  }
 }

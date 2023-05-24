@@ -8,7 +8,7 @@ part of 'pemesanan_hotel.dart';
 
 class PesananAdapter extends TypeAdapter<Pesanan> {
   @override
-  final int typeId = 0;
+  final int typeId = 157;
 
   @override
   Pesanan read(BinaryReader reader) {

@@ -15,6 +15,25 @@ class ListHotels extends StatefulWidget {
 class _ListHotelsState extends State<ListHotels> {
   List<Widget> allWidgets = [];
 
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    // Perform the desired navigation based on the selected index
+    if (_selectedIndex == 0) {
+      Navigator.pushNamed(context, '/HomePage');
+    } else if (_selectedIndex == 1) {
+      Navigator.pushNamed(context, '/List');
+    } else if (_selectedIndex == 2) {
+      Navigator.pushNamed(context, '/Riwayat');
+    } else if (_selectedIndex == 3) {
+      Navigator.pushNamed(context, '/Login');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +78,29 @@ class _ListHotelsState extends State<ListHotels> {
               return Text("Failed");
             }
           }),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.blue,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance_rounded, color: Colors.black),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart, color: Colors.black),
+            label: 'Buy Menu',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history, color: Colors.black),
+            label: 'History',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.logout, color: Colors.black),
+            label: 'Logout',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }
